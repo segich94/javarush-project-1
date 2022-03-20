@@ -10,22 +10,29 @@ public class Crypt {
             'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я', 'а', 'б',
             'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т',
             'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
-
+    public static final int AlphabetLength = ALPHABET.length;
 
     public Crypt(String data, int cryptShift) {
         this.data = data;
         this.cryptShift = cryptShift;
     }
 
-    public void encrypt(){
-        for (char ch:this.data.toCharArray()) {
-            System.out.print(cryptChar(ch,cryptShift));
-        }
+    public String encrypt(){
+       return decrypt(cryptShift);
     }
-    public void decrypt(){
-        for (char ch:this.data.toCharArray()) {
-            System.out.print(cryptChar(ch,cryptShift * (-1)));
+
+    public String decrypt(){
+        return decrypt(-cryptShift);
+    }
+
+    public String decrypt(int shift){
+        char[] result = new char[data.length()];
+        int i = 0;
+        for (char ch:data.toCharArray()) {
+            result[i] = cryptChar(ch,shift);
+            i++;
         }
+        return String.valueOf(result);
     }
 
     public char cryptChar(char ch, int shift){
