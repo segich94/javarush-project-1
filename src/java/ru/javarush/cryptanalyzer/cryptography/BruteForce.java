@@ -4,19 +4,21 @@ import java.io.*;
 import java.util.*;
 
 public class BruteForce {
-    private static List<String> LIBRARY = new ArrayList<>();
+    private static List<String> LIBRARY = createLibraryFromFile(new File("src/mostPopularRus.txt"));
     private static List<Integer> successKey = new ArrayList<>();
     
-    public static void createLibraryFromFile(File file){
+    public static List<String> createLibraryFromFile(File file){
+        List<String> result = new ArrayList<>();
         try (BufferedReader fileReader = new BufferedReader(new FileReader(file))){
             while (fileReader.ready()){
-                LIBRARY.add(fileReader.readLine().trim());
+                result.add(fileReader.readLine().trim());
             }
         } catch (FileNotFoundException e){
             System.out.println("Файл со словарём не найден - " + file);
         } catch (IOException e) {
             System.out.println("Ошибка чтения файла - " + file);
         }
+        return result;
     }
 
     public static String brute(String string){
