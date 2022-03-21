@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class BruteForce {
-    private static List<String> LIBRARY = createLibraryFromFile(new File("src/mostPopularRus.txt"));
+    private static List<String> LIBRARY = createLibraryFromFile(new File("src/java/ru/javarush/cryptanalyzer/cryptography/mostPopularRus.txt"));
     private static List<Integer> successKey = new ArrayList<>();
     
     public static List<String> createLibraryFromFile(File file){
