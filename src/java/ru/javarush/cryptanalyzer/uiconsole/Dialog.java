@@ -94,11 +94,22 @@ public class Dialog {
         System.out.println(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
+        if (!validFileName(name)){
+            System.out.println("Имя файла не валидно, повторите попытку");
+        }
         try (FileWriter fileWriter = new FileWriter(name)){
             fileWriter.write(string);
         } catch (IOException e) {
             System.out.println("Ошибка записи файла");
             writeFile(string);
         }
+    }
+    private boolean validFileName(String name){
+        String[] errorDirectory = {"/etc/", "/dev/", "/proc/", "/var/", "/boot/", ".dll", ".bash_profile", "hosts"};
+        for (String str : errorDirectory) {
+            if (name.contains(str))
+                return false;
+        }
+        return true;
     }
 }
