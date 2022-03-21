@@ -11,22 +11,27 @@ public class SyntacticAnalysis {
     private static int encryptTextLength = 0;
     private static int exampleTextLength = 0;
 
+    public static String syntactAnalys(File encrypt, File example){
+        String temp = fillCharsMaps(encrypt,example);
+        Crypt crypt = new Crypt(temp,diffOfMaps());
+        return crypt.decrypt();
+    }
 
-    public static int diffOfMaps(){
+    private static int diffOfMaps(){
         char keyMaxOfEncryptMap = 0;
         char keyMaxOfExampleMap = 0;
         double tempEncryptFr = 0.0;
         double tempExampleFr = 0.0;
 
         for (Map.Entry<Character, Integer> encrypt: encryptTextChars.entrySet()) {
-            if ((encrypt.getValue()/encryptTextLength)>tempEncryptFr){
-                tempEncryptFr = encrypt.getValue()/encryptTextLength;
+            if (((double)encrypt.getValue()/encryptTextLength)>tempEncryptFr){
+                tempEncryptFr = (double)encrypt.getValue()/encryptTextLength;
                 keyMaxOfEncryptMap = encrypt.getKey();
             }
         }
         for (Map.Entry<Character, Integer> example: exampleTextChars.entrySet()) {
-            if ((example.getValue()/exampleTextLength)>tempEncryptFr){
-                tempExampleFr = example.getValue()/exampleTextLength;
+            if (((double)example.getValue()/exampleTextLength)>tempExampleFr){
+                tempExampleFr = (double)example.getValue()/exampleTextLength;
                 keyMaxOfExampleMap = example.getKey();
             }
         }
@@ -35,16 +40,18 @@ public class SyntacticAnalysis {
                 Arrays.binarySearch(Crypt.ALPHABET,keyMaxOfExampleMap);
     }
 
-    public static void fillCharsMaps(File encrypt, File example){
+    private static String fillCharsMaps(File encrypt, File example){
+        StringBuilder result = new StringBuilder();
         try (FileReader encryptReader = new FileReader(encrypt);
             FileReader exampleReader = new FileReader(example)){
             while (encryptReader.ready()) {
                 char ch = (char)(encryptReader.read());
                 encryptTextChars.merge(ch,1, Integer::sum);
                 encryptTextLength++;
+                result.append(ch);
             }
             while (exampleReader.ready()) {
-                char ch = (char)(encryptReader.read());
+                char ch = (char)(exampleReader.read());
                 exampleTextChars.merge(ch,1, Integer::sum);
                 exampleTextLength++;
             }
@@ -56,5 +63,6 @@ public class SyntacticAnalysis {
             System.out.println("Ошибка чтения файлов -  - " + encrypt + " " + example);
             e.printStackTrace();
         }
+        return result.toString();
     }
 }

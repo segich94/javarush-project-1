@@ -36,9 +36,12 @@ public class Crypt {
     }
 
     public char cryptChar(char ch, int shift){
+        int key = shift;
+        if (key<0)
+            key = (shift % 74)+74;
         int searchResult = Arrays.binarySearch(ALPHABET,ch);
-        if (searchResult == -1)
+        if (searchResult <= -1)
             return ch;
-        else return  ALPHABET[(searchResult+shift) % ALPHABET.length];
+        else return  ALPHABET[(searchResult+key) % ALPHABET.length];
     }
 }

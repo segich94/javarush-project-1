@@ -27,8 +27,10 @@ public class BruteForce {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < 5; i++) {
             int indexOfMax = successKey.indexOf(Collections.max(successKey));
+            result.append("Key - " + indexOfMax + ":");
             result.append(crypt.decrypt(indexOfMax));
             successKey.add(indexOfMax,-1);
+            result.append("\n");
             result.append("\n");
         }
         return result.toString();
