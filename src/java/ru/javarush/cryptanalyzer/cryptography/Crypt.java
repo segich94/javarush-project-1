@@ -3,8 +3,8 @@ package ru.javarush.cryptanalyzer.cryptography;
 import java.util.Arrays;
 
 public class Crypt {
-    private String data;
-    private int cryptShift;
+    private final String data;
+    private final int cryptShift;
     public static final char[] ALPHABET = {' ', '!', '"', '\'', ',', '.', ':', '?', '«', '»',
             'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
             'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я', 'а', 'б',
@@ -17,31 +17,31 @@ public class Crypt {
         this.cryptShift = cryptShift;
     }
 
-    public String encrypt(){
-       return decrypt(cryptShift);
+    public String encrypt() {
+        return decrypt(cryptShift);
     }
 
-    public String decrypt(){
+    public String decrypt() {
         return decrypt(-cryptShift);
     }
 
-    public String decrypt(int shift){
+    public String decrypt(int shift) {
         char[] result = new char[data.length()];
         int i = 0;
-        for (char ch:data.toCharArray()) {
-            result[i] = cryptChar(ch,shift);
+        for (char ch : data.toCharArray()) {
+            result[i] = cryptChar(ch, shift);
             i++;
         }
         return String.valueOf(result);
     }
 
-    public char cryptChar(char ch, int shift){
+    public char cryptChar(char ch, int shift) {
         int key = shift;
-        if (key<0)
-            key = (shift % 74)+74;
-        int searchResult = Arrays.binarySearch(ALPHABET,ch);
+        if (key < 0)
+            key = (shift % AlphabetLength) + AlphabetLength;
+        int searchResult = Arrays.binarySearch(ALPHABET, ch);
         if (searchResult <= -1)
             return ch;
-        else return  ALPHABET[(searchResult+key) % ALPHABET.length];
+        else return ALPHABET[(searchResult + key) % ALPHABET.length];
     }
 }
