@@ -40,8 +40,10 @@ public class Crypt {
         if (key < 0)
             key = (shift % AlphabetLength) + AlphabetLength;
         int searchResult = Arrays.binarySearch(ALPHABET, ch);
-        if (searchResult <= -1)
+        if (searchResult <= -1) {
             return ch;
-        else return ALPHABET[(searchResult + key) % ALPHABET.length];
+        }
+        else
+            return ALPHABET[(searchResult + key) % ALPHABET.length];
     }
 }

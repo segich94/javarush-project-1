@@ -18,26 +18,24 @@ public class SyntacticAnalysis {
     }
 
     private static int diffOfMaps() {
-        char keyMaxOfEncryptMap = 0;
-        char keyMaxOfExampleMap = 0;
-        double tempEncryptFr = 0.0;
-        double tempExampleFr = 0.0;
-
-        for (Map.Entry<Character, Integer> encrypt : encryptTextChars.entrySet()) {
-            if (((double) encrypt.getValue() / encryptTextLength) > tempEncryptFr) {
-                tempEncryptFr = (double) encrypt.getValue() / encryptTextLength;
-                keyMaxOfEncryptMap = encrypt.getKey();
-            }
-        }
-        for (Map.Entry<Character, Integer> example : exampleTextChars.entrySet()) {
-            if (((double) example.getValue() / exampleTextLength) > tempExampleFr) {
-                tempExampleFr = (double) example.getValue() / exampleTextLength;
-                keyMaxOfExampleMap = example.getKey();
-            }
-        }
+        char keyMaxOfEncryptMap = maxFreqOfMap(encryptTextChars,encryptTextLength);
+        char keyMaxOfExampleMap = maxFreqOfMap(exampleTextChars,exampleTextLength);
 
         return Arrays.binarySearch(Crypt.ALPHABET, keyMaxOfEncryptMap) -
                 Arrays.binarySearch(Crypt.ALPHABET, keyMaxOfExampleMap);
+    }
+
+    private static char maxFreqOfMap(Map<Character, Integer> map, int textLength){
+        double tempMaxFreq = 0.0;
+        char result = 0;
+        for (Map.Entry<Character, Integer> chars:map.entrySet()){
+            double charsFreq = (double) chars.getValue() / textLength;
+            if (charsFreq > tempMaxFreq){
+                tempMaxFreq = charsFreq;
+                result = chars.getKey();
+            }
+        }
+        return result;
     }
 
     private static String fillCharsMaps(File encrypt, File example) {

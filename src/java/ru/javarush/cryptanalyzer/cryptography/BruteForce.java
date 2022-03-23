@@ -23,9 +23,10 @@ public class BruteForce {
 
     public static String brute(String string) {
         fillSuccessArray(string);
+        int mostSuccessKey = 5;
         Crypt crypt = new Crypt(string, 0);
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < mostSuccessKey; i++) {
             int indexOfMax = successKey.indexOf(Collections.max(successKey));
             result.append("Key - " + indexOfMax + ":");
             result.append(crypt.decrypt(indexOfMax));
@@ -44,9 +45,10 @@ public class BruteForce {
     }
 
     private static int successCount(String string) {
+        int averageFreqOfSpace = 10;
         int countSuccess = 0;
         String[] element = string.split(" ");
-        if (element.length > string.length() / 10) {
+        if (element.length > string.length() / averageFreqOfSpace) {
             for (String word : element) {
                 if (LIBRARY.contains(word))
                     countSuccess++;
