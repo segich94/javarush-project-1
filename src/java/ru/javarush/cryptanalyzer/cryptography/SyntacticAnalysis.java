@@ -13,7 +13,7 @@ public class SyntacticAnalysis {
 
     public static String syntactAnalys(File encrypt, File example) {
         String temp = fillCharsMaps(encrypt, example);
-        Crypt crypt = new Crypt(temp, diffOfMaps());
+        Crypt crypt = Crypt.getInstance(temp, diffOfMaps());
         return crypt.decrypt();
     }
 

@@ -41,7 +41,7 @@ public class Dialog {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите ключ для шифрования(целое число)");
         int key = scanner.nextInt();
-        Crypt crypt = new Crypt(srcText, key);
+        Crypt crypt = Crypt.getInstance(srcText, key);
         writeFile(crypt.encrypt());
         System.out.println("Файл зашифрован");
     }
@@ -51,7 +51,7 @@ public class Dialog {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите ключ для шифрования(целое число)");
         int key = scanner.nextInt();
-        Crypt crypt = new Crypt(srcText, key);
+        Crypt crypt = Crypt.getInstance(srcText, key);
         writeFile(crypt.decrypt());
         System.out.println("Файл расшифрован");
     }

@@ -24,7 +24,7 @@ public class BruteForce {
     public static String brute(String string) {
         fillSuccessArray(string);
         int mostSuccessKey = 5;
-        Crypt crypt = new Crypt(string, 0);
+        Crypt crypt = Crypt.getInstance(string, 0);
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < mostSuccessKey; i++) {
             int indexOfMax = successKey.indexOf(Collections.max(successKey));
@@ -38,7 +38,7 @@ public class BruteForce {
     }
 
     private static void fillSuccessArray(String string) {
-        Crypt crypt = new Crypt(string, 0);
+        Crypt crypt = Crypt.getInstance(string, 0);
         for (int i = 0; i < Crypt.AlphabetLength - 1; i++) {
             successKey.add(i, successCount(crypt.decrypt(i)));
         }

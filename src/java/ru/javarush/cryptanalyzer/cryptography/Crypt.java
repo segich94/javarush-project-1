@@ -3,6 +3,7 @@ package ru.javarush.cryptanalyzer.cryptography;
 import java.util.Arrays;
 
 public class Crypt {
+    private static Crypt crypt;
     private final String data;
     private final int cryptShift;
     public static final char[] ALPHABET = {' ', '!', '"', '\'', ',', '.', ':', '?', '«', '»',
@@ -12,9 +13,16 @@ public class Crypt {
             'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'};
     public static final int AlphabetLength = ALPHABET.length;
 
-    public Crypt(String data, int cryptShift) {
+    private Crypt(String data, int cryptShift) {
         this.data = data;
         this.cryptShift = cryptShift;
+    }
+
+    public static Crypt getInstance(String data, int cryptShift) {
+        if (crypt == null) {
+            crypt = new Crypt(data, cryptShift);
+        }
+        return crypt;
     }
 
     public String encrypt() {
@@ -42,8 +50,7 @@ public class Crypt {
         int searchResult = Arrays.binarySearch(ALPHABET, ch);
         if (searchResult <= -1) {
             return ch;
-        }
-        else
+        } else
             return ALPHABET[(searchResult + key) % ALPHABET.length];
     }
 }
